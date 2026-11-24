@@ -19,6 +19,12 @@
 
 # production
 /build
+/dist
+
+# raw design source folders (assets copied to public/)
+/Image & Videos/
+/Logo/
+/Sections/
 
 # misc
 .DS_Store
