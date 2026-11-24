@@ -12,7 +12,7 @@ export interface FocusBlurResolveProps {
   triggerOnView?: boolean;
 }
 
-const DURATION_S = 0.76;
+const DURATION_S = 0.42;
 const MS = 1000;
 // Smooth deceleration — focus-pull ease-out.
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -44,7 +44,7 @@ export default function FocusBlurResolve({
         initial={
           shouldReduceMotion
             ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
-            : { filter: "blur(14px)", opacity: 0, scale: 1.01, y: 14 }
+            : { filter: "blur(8px)", opacity: 0, scale: 1.005, y: 8 }
         }
         style={{ display: "inline-block" }}
         transition={
