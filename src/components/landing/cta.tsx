@@ -37,7 +37,7 @@ export function Cta() {
                 size="xl"
                 className="min-w-[184px]"
                 nativeButton={false}
-                render={<Link href="/pricing" />}
+                render={<Link href="/pricing" prefetch={false} />}
               >
                 Get Started
               </Button>

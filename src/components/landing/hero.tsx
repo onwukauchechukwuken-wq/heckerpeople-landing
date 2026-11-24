@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -16,6 +16,8 @@ import { BookDemoButton } from "./book-demo-modal";
 export function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -24,6 +26,43 @@ export function Hero() {
 
   const videoScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -28]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    let cancelled = false;
+    let idleId: number | null = null;
+    let timerId: ReturnType<typeof setTimeout> | null = null;
+
+    const triggerLoad = () => {
+      if (!cancelled) setShouldLoadVideo(true);
+    };
+
+    const scheduleAfterLoad = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(triggerLoad, { timeout: 1200 });
+      } else {
+        timerId = setTimeout(triggerLoad, 400);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      scheduleAfterLoad();
+    } else {
+      window.addEventListener("load", scheduleAfterLoad, { once: true });
+    }
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", scheduleAfterLoad);
+      if (idleId !== null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timerId !== null) {
+        clearTimeout(timerId);
+      }
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <section className="pb-6">
@@ -42,17 +81,33 @@ export function Hero() {
             style={prefersReducedMotion ? undefined : { scale: videoScale }}
             className="absolute inset-0 h-full w-full origin-center will-change-transform"
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster="/hero/hero-poster.webp"
+            {/* Primary above-the-fold LCP visual */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero/hero-poster.webp"
+              alt="Team collaborating in a modern HeckerPeople workspace"
+              fetchPriority="high"
+              decoding="async"
               className="h-full w-full object-cover"
-            >
-              <source src="/hero/hero-bg.mp4" type="video/mp4" />
-            </video>
+            />
+
+            {/* Deferred hero video attached after initial load / idle */}
+            {shouldLoadVideo && !prefersReducedMotion && (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="none"
+                poster="/hero/hero-poster.webp"
+                onCanPlay={() => setVideoReady(true)}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
+                  videoReady ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <source src="/hero/hero-bg.mp4" type="video/mp4" />
+              </video>
+            )}
           </motion.div>
 
           <div
@@ -94,7 +149,7 @@ export function Hero() {
                   size="xl"
                   className="min-w-[200px]"
                   nativeButton={false}
-                  render={<Link href="/pricing" />}
+                  render={<Link href="/pricing" prefetch={false} />}
                 >
                   Get Started
                 </Button>

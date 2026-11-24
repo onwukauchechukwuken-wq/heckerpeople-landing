@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/ui/animated-background";
@@ -126,7 +126,7 @@ function Bento({
             src={col1Tall.src}
             alt={col1Tall.alt}
             fill
-            loading="eager"
+            loading="lazy"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
@@ -137,7 +137,7 @@ function Bento({
             src={col1Short.src}
             alt={col1Short.alt}
             fill
-            loading="eager"
+            loading="lazy"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
@@ -151,7 +151,7 @@ function Bento({
             src={col2Short.src}
             alt={col2Short.alt}
             fill
-            loading="eager"
+            loading="lazy"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
@@ -162,7 +162,7 @@ function Bento({
             src={col2Tall.src}
             alt={col2Tall.alt}
             fill
-            loading="eager"
+            loading="lazy"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
@@ -176,19 +176,6 @@ function Bento({
 export function PlatformTabs() {
   const [activeTab, setActiveTab] = useState<PlatformTab["value"]>("payroll");
   const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    const preloadSources = [
-      ...BENTO_BY_TAB.biometric,
-      ...BENTO_BY_TAB.talent,
-    ].map((tile) => tile.src);
-
-    preloadSources.forEach((src) => {
-      const img = new window.Image();
-      img.decoding = "async";
-      img.src = src;
-    });
-  }, []);
 
   const activeTabIndex = Math.max(
     0,

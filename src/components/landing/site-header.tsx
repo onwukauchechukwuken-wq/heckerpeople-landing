@@ -86,7 +86,7 @@ export function SiteHeader() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href="/pricing" className="hover:text-primary">
+            <Link href="/pricing" prefetch={false} className="hover:text-primary">
               Pricing
             </Link>
             <a href="#contact" className="hover:text-primary">
@@ -158,7 +158,7 @@ export function SiteHeader() {
                 </SheetClose>
                 <SheetClose
                   nativeButton={false}
-                  render={<Link href="/pricing" />}
+                  render={<Link href="/pricing" prefetch={false} />}
                 >
                   Pricing
                 </SheetClose>

@@ -71,7 +71,7 @@ export function Pricing() {
                 size="xl"
                 className="hover:bg-primary/10"
                 nativeButton={false}
-                render={<Link href="/pricing" />}
+                render={<Link href="/pricing" prefetch={false} />}
               >
                 See Plans
                 <ArrowRight className="size-5" aria-hidden="true" />
