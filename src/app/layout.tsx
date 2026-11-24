@@ -18,10 +18,41 @@ const sora = Sora({
   display: "swap",
 });
 
+const SITE_URL = "https://heckerpeople-landing.vercel.app";
+const SITE_TITLE = "HeckerPeople — Simplify Your HR & Empower Your Team";
+const SITE_DESCRIPTION =
+  "Automate biometric attendance, shift rostering, KPIs, and multi-tier payroll in one unified workforce platform that cuts HR friction.";
+
 export const metadata: Metadata = {
-  title: "HeckerPeople — Seamless Workforce Management",
-  description:
-    "HeckerPeople provides the tools to effortlessly manage your workforce — from biometric attendance to multi-tier payroll, shift rostering, and KPI appraisals.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "HeckerPeople",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 720,
+        alt: SITE_TITLE,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
