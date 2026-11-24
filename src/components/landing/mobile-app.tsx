@@ -38,10 +38,12 @@ export function MobileApp() {
               </span>
               <span className="rounded-xl bg-white p-1.5">
                 <Image
-                  src="/images/qr.png"
+                  src="/images/qr.webp"
                   alt="QR code to download the HeckerPeople mobile app"
                   width={80}
                   height={80}
+                  loading="lazy"
+                  decoding="async"
                   className="size-20"
                 />
               </span>
@@ -54,9 +56,11 @@ export function MobileApp() {
             <BlurFade inView duration={0.36} offset={8} blur="4px">
               <div className="relative aspect-[2600/1680] overflow-hidden rounded-3xl">
                 <Image
-                  src="/mobile/mobile1.png"
+                  src="/mobile/mobile1.webp"
                   alt="HeckerPeople — Trusted by distributed teams across Lagos"
                   fill
+                  loading="lazy"
+                  decoding="async"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   className="object-cover"
                 />
@@ -65,9 +69,11 @@ export function MobileApp() {
             <BlurFade inView delay={0.06} duration={0.36} offset={8} blur="4px">
               <div className="relative aspect-[1880/1680] overflow-hidden rounded-3xl">
                 <Image
-                  src="/mobile/mobile2.png"
+                  src="/mobile/mobile2.webp"
                   alt="HeckerPeople mobile app screen showing biometric index finger enrollment"
                   fill
+                  loading="lazy"
+                  decoding="async"
                   sizes="(min-width:1024px) 42vw, 100vw"
                   className="object-cover"
                 />
@@ -79,9 +85,11 @@ export function MobileApp() {
             <BlurFade inView duration={0.36} offset={8} blur="4px">
               <div className="relative aspect-[1880/1680] overflow-hidden rounded-3xl">
                 <Image
-                  src="/mobile/mobile3.png"
+                  src="/mobile/mobile3.webp"
                   alt="HeckerPeople mobile app screen showing live fingerprint match verified at 99.8%"
                   fill
+                  loading="lazy"
+                  decoding="async"
                   sizes="(min-width:1024px) 42vw, 100vw"
                   className="object-cover"
                 />
@@ -90,9 +98,11 @@ export function MobileApp() {
             <BlurFade inView delay={0.06} duration={0.36} offset={8} blur="4px">
               <div className="relative aspect-[2600/1680] overflow-hidden rounded-3xl">
                 <Image
-                  src="/mobile/mobile4.png"
+                  src="/mobile/mobile4.webp"
                   alt="Attendance That Works Where Your Team Works — Give on-site teams and remote field staff an effortless way to check in, review hours, and stay connected."
                   fill
+                  loading="lazy"
+                  decoding="async"
                   sizes="(min-width:1024px) 58vw, 100vw"
                   className="object-cover"
                 />

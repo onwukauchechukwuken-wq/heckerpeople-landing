@@ -48,10 +48,12 @@ export function Cta() {
         <BlurFade inView delay={0.1} duration={0.38} offset={10} blur="4px">
           <div className="relative mx-auto mt-14 w-full max-w-[1110px] overflow-hidden rounded-3xl">
             <Image
-              src="/cta/conversion-dashboard.png"
+              src="/cta/conversion-dashboard.webp"
               alt="HeckerPeople dashboard preview showing KPI management and team workflows"
               width={2400}
               height={913}
+              loading="lazy"
+              decoding="async"
               className="block h-auto w-full object-cover"
             />
             <div

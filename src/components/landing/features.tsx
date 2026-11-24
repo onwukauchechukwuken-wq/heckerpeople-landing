@@ -23,7 +23,7 @@ const FEATURES: FeatureRow[] = [
       "Live Shift Status Tracking",
       "Automated Conflict Alerts",
     ],
-    imageSrc: "/ops/shift-rostering.png",
+    imageSrc: "/ops/shift-rostering.webp",
     imageAlt:
       "HeckerPeople shift rostering interface showing employee schedule assignment",
   },
@@ -36,7 +36,7 @@ const FEATURES: FeatureRow[] = [
       "Bank-Grade Document Vault",
       "Tamper-proof Audit Trails",
     ],
-    imageSrc: "/ops/kpi-vault.png",
+    imageSrc: "/ops/kpi-vault.webp",
     imageAlt:
       "HeckerPeople KPI Management scorecard showing deliverables and score breakdown",
     reverse: true,
@@ -50,7 +50,7 @@ const FEATURES: FeatureRow[] = [
       "Tamper-Proof Compliance",
       "Advanced Search & Filtering",
     ],
-    imageSrc: "/ops/audit-log.png",
+    imageSrc: "/ops/audit-log.webp",
     imageAlt:
       "HeckerPeople reports interface showing real-time activity and compliance audit logs",
   },
@@ -132,6 +132,8 @@ export function Features() {
                       src={feature.imageSrc}
                       alt={feature.imageAlt}
                       fill
+                      loading="lazy"
+                      decoding="async"
                       sizes="(min-width:1024px) 45vw, 100vw"
                       className="object-cover"
                     />

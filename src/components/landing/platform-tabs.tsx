@@ -57,55 +57,55 @@ const BENTO_BY_TAB: Record<
 > = {
   payroll: [
     {
-      src: "/features/tab1-payroll1.png",
+      src: "/features/tab1-payroll1.webp",
       alt: "Smiling team member representing automated compensation and payroll",
     },
     {
-      src: "/features/tab1-payroll2.png",
+      src: "/features/tab1-payroll2.webp",
       alt: "Paid employee compensation records list in HeckerPeople",
     },
     {
-      src: "/features/tab1-payroll3.png",
+      src: "/features/tab1-payroll3.webp",
       alt: "Create payroll interface displaying mandated allowances in Naira",
     },
     {
-      src: "/features/tab1-payroll4.png",
+      src: "/features/tab1-payroll4.webp",
       alt: "Translucent Naira currency coins arranged in a ring",
     },
   ],
   biometric: [
     {
-      src: "/features/tab2-biometric1.png",
+      src: "/features/tab2-biometric1.webp",
       alt: "Hardware-verified biometric attendance visual 1",
     },
     {
-      src: "/features/tab2-biometric2.png",
+      src: "/features/tab2-biometric2.webp",
       alt: "Hardware-verified biometric attendance visual 2",
     },
     {
-      src: "/features/tab2-biometric3.png",
+      src: "/features/tab2-biometric3.webp",
       alt: "Hardware-verified biometric attendance visual 3",
     },
     {
-      src: "/features/tab2-biometric4.png",
+      src: "/features/tab2-biometric4.webp",
       alt: "Hardware-verified biometric attendance visual 4",
     },
   ],
   talent: [
     {
-      src: "/features/tab3-talent1.png",
+      src: "/features/tab3-talent1.webp",
       alt: "Unified talent lifecycle visual 1",
     },
     {
-      src: "/features/tab3-talent2.png",
+      src: "/features/tab3-talent2.webp",
       alt: "Unified talent lifecycle visual 2",
     },
     {
-      src: "/features/tab3-talent3.png",
+      src: "/features/tab3-talent3.webp",
       alt: "Unified talent lifecycle visual 3",
     },
     {
-      src: "/features/tab3-talent4.png",
+      src: "/features/tab3-talent4.webp",
       alt: "Unified talent lifecycle visual 4",
     },
   ],
@@ -126,6 +126,8 @@ function Bento({
             src={col1Tall.src}
             alt={col1Tall.alt}
             fill
+            loading="lazy"
+            decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
           />
@@ -135,6 +137,8 @@ function Bento({
             src={col1Short.src}
             alt={col1Short.alt}
             fill
+            loading="lazy"
+            decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
           />
@@ -147,6 +151,8 @@ function Bento({
             src={col2Short.src}
             alt={col2Short.alt}
             fill
+            loading="lazy"
+            decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
           />
@@ -156,6 +162,8 @@ function Bento({
             src={col2Tall.src}
             alt={col2Tall.alt}
             fill
+            loading="lazy"
+            decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
             className="object-cover"
           />

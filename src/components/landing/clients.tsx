@@ -33,6 +33,8 @@ export function Clients() {
                 <img
                   src={logo.src}
                   alt={logo.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="h-7 w-auto max-w-full object-contain"
                 />
               </div>

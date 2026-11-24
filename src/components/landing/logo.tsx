@@ -13,6 +13,8 @@ export function Logo({ className }: LogoProps) {
         alt="HeckerPeople"
         width={83}
         height={32}
+        fetchPriority="high"
+        decoding="async"
         className="h-8 w-auto shrink-0 object-contain"
       />
     </span>

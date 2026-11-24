@@ -327,9 +327,11 @@ function BookDemoModal({
             {/* Right column: Rounded image card */}
             <div className="relative hidden min-h-[520px] overflow-hidden rounded-2xl lg:block">
               <Image
-                src="/images/book-demo-card.png"
+                src="/images/book-demo-card.webp"
                 alt="Heckerpeople, Happy People — Less HR friction on your plate means more energy for the people driving your business."
                 fill
+                loading="lazy"
+                decoding="async"
                 sizes="(min-width:1024px) 460px, 100vw"
                 className="object-cover"
               />

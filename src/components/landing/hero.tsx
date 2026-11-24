@@ -32,6 +32,12 @@ export function Hero() {
           ref={heroRef}
           className="relative h-[600px] overflow-hidden rounded-[28px] bg-[#0B1220] sm:h-[700px] lg:h-[850px]"
         >
+          <link
+            rel="preload"
+            as="image"
+            href="/hero/hero-poster.webp"
+            fetchPriority="high"
+          />
           <motion.div
             style={prefersReducedMotion ? undefined : { scale: videoScale }}
             className="absolute inset-0 h-full w-full origin-center will-change-transform"
@@ -41,7 +47,8 @@ export function Hero() {
               loop
               muted
               playsInline
-              poster="/hero/hero-poster.png"
+              preload="metadata"
+              poster="/hero/hero-poster.webp"
               className="h-full w-full object-cover"
             >
               <source src="/hero/hero-bg.mp4" type="video/mp4" />
