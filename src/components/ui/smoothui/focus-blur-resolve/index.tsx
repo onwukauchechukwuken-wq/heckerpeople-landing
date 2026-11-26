@@ -12,17 +12,10 @@ export interface FocusBlurResolveProps {
   triggerOnView?: boolean;
 }
 
-const DURATION_S = 0.42;
+const DURATION_S = 0.6;
 const MS = 1000;
-// Smooth deceleration — focus-pull ease-out.
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/**
- * FocusBlurResolve — whole-text entrance that pulls from heavy blur to crisp,
- * with a subtle upward drift and scale settle. Ideal for hero headlines and
- * section titles where the moment of resolution feels intentional.
- * From the animate-text catalog (`focus-blur-resolve`).
- */
 export default function FocusBlurResolve({
   children,
   className = "",
@@ -30,7 +23,7 @@ export default function FocusBlurResolve({
   triggerOnView = false,
 }: FocusBlurResolveProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: "some" });
+  const inView = useInView(ref, { once: true, amount: 0.2 });
   const shouldReduceMotion = useReducedMotion();
   const play = (!triggerOnView || inView) && !shouldReduceMotion;
 
@@ -38,13 +31,17 @@ export default function FocusBlurResolve({
     <span aria-label={children} className={className} ref={ref}>
       <motion.span
         animate={
-          play ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 } : undefined
+          play
+            ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
+            : shouldReduceMotion
+              ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
+              : { filter: "blur(10px)", opacity: 0, scale: 1.01, y: 16 }
         }
         aria-hidden="true"
         initial={
           shouldReduceMotion
             ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
-            : { filter: "blur(8px)", opacity: 0, scale: 1.005, y: 8 }
+            : { filter: "blur(10px)", opacity: 0, scale: 1.01, y: 16 }
         }
         style={{ display: "inline-block" }}
         transition={
