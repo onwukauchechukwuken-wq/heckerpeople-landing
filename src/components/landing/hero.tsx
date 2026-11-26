@@ -95,11 +95,8 @@ export function Hero() {
             </h1>
             <p className="mt-4 max-w-[760px] font-sans text-base leading-[1.55] text-white/90 sm:text-[17px]">
               <FocusBlurResolve delay={100}>
-                HeckerPeople provides the tools to effortlessly manage your
-                workforce. By automating complex HR tasks—from biometric
-                attendance to multi-tier payroll our platform reduces
-                administrative burden and creates a foundation for a highly
-                efficient, people first workplace.
+                Effortlessly manage your workforce by automating attendance,
+                payroll, and core HR operations in one people-first platform.
               </FocusBlurResolve>
             </p>
             <BlurFade duration={0.34} delay={0.14} offset={8} blur="4px">
