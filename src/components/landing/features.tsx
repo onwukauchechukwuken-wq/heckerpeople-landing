@@ -111,35 +111,28 @@ export function Features() {
                 </BlurFade>
               </div>
 
-              <BlurFade
-                inView
-                delay={0.06}
-                duration={0.36}
-                offset={8}
-                blur="4px"
-                className={feature.reverse ? "lg:order-first" : undefined}
-              >
+              <div className={feature.reverse ? "lg:order-first" : undefined}>
                 <MagicCard
                   gradientSize={280}
                   gradientFrom="#06B6E9"
                   gradientTo="#7DD3FC"
                   gradientColor="rgba(6, 182, 233, 0.14)"
                   gradientOpacity={0.75}
-                  className="aspect-[2416/1400] w-full rounded-2xl"
+                  className="aspect-[2416/1400] w-full rounded-2xl bg-slate-100"
                 >
                   <div className="relative h-full w-full">
                     <Image
                       src={feature.imageSrc}
                       alt={feature.imageAlt}
                       fill
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
                       sizes="(min-width:1024px) 45vw, 100vw"
                       className="object-cover"
                     />
                   </div>
                 </MagicCard>
-              </BlurFade>
+              </div>
             </div>
           ))}
         </div>
