@@ -18,8 +18,6 @@ interface BentoImageTile {
   src: string;
   alt: string;
   bgClass?: string;
-  bgImage?: string;
-  frostedCard?: boolean;
 }
 
 const PLATFORM_TABS: PlatformTab[] = [
@@ -65,8 +63,6 @@ const BENTO_BY_TAB: Record<
       src: "/features/card-payroll-3.png",
       alt: "Paid employee compensation records list in HeckerPeople",
       bgClass: "bg-[#EAE6F3]",
-      bgImage: "/features/bg-payroll-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab1-payroll3.webp",
@@ -87,8 +83,6 @@ const BENTO_BY_TAB: Record<
       src: "/features/card-biometric-3.png",
       alt: "Employee attendance status card with clock-in, PTO leave, and exemption details",
       bgClass: "bg-[#F3EEF8]",
-      bgImage: "/features/bg-biometric-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab2-biometric3.webp",
@@ -109,8 +103,6 @@ const BENTO_BY_TAB: Record<
       src: "/features/card-talent-3.png",
       alt: "Top candidate matches list in HeckerPeople",
       bgClass: "bg-[#F2F6E8]",
-      bgImage: "/features/bg-talent-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab3-talent3.webp",
@@ -127,11 +119,9 @@ const BENTO_BY_TAB: Record<
 function BentoTile({
   tile,
   heightClass,
-  defaultFitClass,
 }: {
   tile: BentoImageTile;
   heightClass: string;
-  defaultFitClass: "object-cover" | "object-contain";
 }) {
   return (
     <div
@@ -139,44 +129,16 @@ function BentoTile({
         tile.bgClass ?? "bg-slate-100"
       }`}
     >
-      {tile.bgImage && (
-        <img
-          src={tile.bgImage}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        />
-      )}
-
-      {tile.frostedCard ? (
-        <div className="relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-5">
-          <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/50 bg-white/35 p-3 shadow-sm backdrop-blur-md">
-            <div className="relative h-full w-full">
-              <Image
-                src={tile.src}
-                alt={tile.alt}
-                fill
-                unoptimized
-                loading="eager"
-                decoding="async"
-                sizes="(min-width:1024px) 25vw, 50vw"
-                className="h-full w-full rounded-xl object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <Image
-          src={tile.src}
-          alt={tile.alt}
-          fill
-          unoptimized
-          loading="eager"
-          decoding="async"
-          sizes="(min-width:1024px) 25vw, 50vw"
-          className={`relative z-10 h-full w-full ${defaultFitClass}`}
-        />
-      )}
+      <Image
+        src={tile.src}
+        alt={tile.alt}
+        fill
+        unoptimized
+        loading="eager"
+        decoding="async"
+        sizes="(min-width:1024px) 25vw, 50vw"
+        className="h-full w-full object-cover"
+      />
     </div>
   );
 }
@@ -189,31 +151,15 @@ function Bento({
   const [col1Tall, col1Short, col2Short, col2Tall] = tiles;
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <div className="flex flex-col gap-4">
-        <BentoTile
-          tile={col1Tall}
-          heightClass="h-72 sm:h-96 lg:h-[440px]"
-          defaultFitClass="object-cover"
-        />
-        <BentoTile
-          tile={col1Short}
-          heightClass="h-48 sm:h-64 lg:h-[310px]"
-          defaultFitClass="object-contain"
-        />
+    <div className="grid grid-cols-2 gap-3.5">
+      <div className="flex flex-col gap-3.5">
+        <BentoTile tile={col1Tall} heightClass="h-56 sm:h-64 lg:h-[260px]" />
+        <BentoTile tile={col1Short} heightClass="h-44 sm:h-52 lg:h-[195px]" />
       </div>
 
-      <div className="flex flex-col gap-4">
-        <BentoTile
-          tile={col2Short}
-          heightClass="h-48 sm:h-64 lg:h-[310px]"
-          defaultFitClass="object-contain"
-        />
-        <BentoTile
-          tile={col2Tall}
-          heightClass="h-72 sm:h-96 lg:h-[440px]"
-          defaultFitClass="object-cover"
-        />
+      <div className="flex flex-col gap-3.5">
+        <BentoTile tile={col2Short} heightClass="h-44 sm:h-52 lg:h-[195px]" />
+        <BentoTile tile={col2Tall} heightClass="h-56 sm:h-64 lg:h-[260px]" />
       </div>
     </div>
   );
@@ -225,12 +171,12 @@ export function PlatformTabs() {
   return (
     <section
       id="platform"
-      className="flex min-h-screen w-full items-center px-6 py-20 md:px-12 lg:px-[80px] lg:py-24 xl:px-[100px]"
+      className="flex min-h-[calc(100vh-4rem)] w-full items-center px-6 py-10 md:px-12 lg:px-[80px] lg:py-12 xl:px-[100px]"
     >
       <div className="mx-auto w-full max-w-[1440px]">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <h2 className="text-display max-w-[520px] font-medium text-[#0F172A]">
+            <h2 className="max-w-[480px] font-sans text-3xl leading-[1.15] font-medium tracking-tight text-[#0F172A] sm:text-4xl lg:text-[40px]">
               <FocusBlurResolve triggerOnView>
                 One Platform. Total Workforce Control.
               </FocusBlurResolve>
@@ -240,7 +186,7 @@ export function PlatformTabs() {
               role="tablist"
               aria-orientation="vertical"
               aria-label="HeckerPeople platform capabilities"
-              className="mt-12 flex w-full flex-col items-stretch gap-2"
+              className="mt-6 flex w-full flex-col items-stretch gap-1.5"
             >
               <AnimatedBackground
                 defaultValue="payroll"
@@ -265,10 +211,10 @@ export function PlatformTabs() {
                     aria-selected={activeTab === tab.value}
                     data-id={tab.value}
                     onClick={() => setActiveTab(tab.value)}
-                    className="w-full cursor-pointer rounded-2xl border-0 p-6 text-left font-normal text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:p-8"
+                    className="w-full cursor-pointer rounded-2xl border-0 px-5 py-4 text-left font-normal text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:px-6 md:py-5"
                   >
-                    <span className="flex w-full flex-col items-start gap-3">
-                      <span className="flex items-center gap-3 font-sans text-[20px] leading-snug font-medium text-foreground">
+                    <span className="flex w-full flex-col items-start gap-2">
+                      <span className="flex items-center gap-2.5 font-sans text-[18px] leading-snug font-medium text-foreground">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={tab.iconSrc}
@@ -280,7 +226,7 @@ export function PlatformTabs() {
                         />
                         <span>{tab.title}</span>
                       </span>
-                      <span className="max-w-[470px] font-sans text-base leading-[1.6] font-normal text-body">
+                      <span className="max-w-[470px] font-sans text-sm leading-relaxed font-normal text-body">
                         {tab.description}
                       </span>
                     </span>
@@ -298,4 +244,3 @@ export function PlatformTabs() {
     </section>
   );
 }
-
