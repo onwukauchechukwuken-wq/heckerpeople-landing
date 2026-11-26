@@ -144,16 +144,33 @@ function BentoTile({
         />
       )}
 
-      <Image
-        src={tile.src}
-        alt={tile.alt}
-        fill
-        unoptimized
-        loading="eager"
-        decoding="async"
-        sizes="(min-width:1024px) 25vw, 50vw"
-        className={`relative z-10 h-full w-full ${defaultFitClass}`}
-      />
+      {tile.bgImage ? (
+        <div className="relative z-10 h-full w-full p-5">
+          <div className="relative h-full w-full">
+            <Image
+              src={tile.src}
+              alt={tile.alt}
+              fill
+              unoptimized
+              loading="eager"
+              decoding="async"
+              sizes="(min-width:1024px) 25vw, 50vw"
+              className="h-full w-full object-contain"
+            />
+          </div>
+        </div>
+      ) : (
+        <Image
+          src={tile.src}
+          alt={tile.alt}
+          fill
+          unoptimized
+          loading="eager"
+          decoding="async"
+          sizes="(min-width:1024px) 25vw, 50vw"
+          className={`relative z-10 h-full w-full ${defaultFitClass}`}
+        />
+      )}
     </div>
   );
 }
