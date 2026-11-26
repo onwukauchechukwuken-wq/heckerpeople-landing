@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/ui/animated-background";
 import FocusBlurResolve from "@/components/ui/smoothui/focus-blur-resolve";
-import { TransitionPanel } from "@/components/ui/transition-panel";
 
 interface PlatformTab {
   value: "payroll" | "biometric" | "talent";
@@ -19,6 +17,7 @@ interface PlatformTab {
 interface BentoImageTile {
   src: string;
   alt: string;
+  bgClass?: string;
 }
 
 const PLATFORM_TABS: PlatformTab[] = [
@@ -63,10 +62,12 @@ const BENTO_BY_TAB: Record<
     {
       src: "/features/tab1-payroll2.webp",
       alt: "Paid employee compensation records list in HeckerPeople",
+      bgClass: "bg-[#EAE6F3]",
     },
     {
       src: "/features/tab1-payroll3.webp",
       alt: "Create payroll interface displaying mandated allowances in Naira",
+      bgClass: "bg-[#EBF4FA]",
     },
     {
       src: "/features/tab1-payroll4.webp",
@@ -81,10 +82,12 @@ const BENTO_BY_TAB: Record<
     {
       src: "/features/tab2-biometric2.webp",
       alt: "Hardware-verified biometric attendance visual 2",
+      bgClass: "bg-[#F3EEF8]",
     },
     {
       src: "/features/tab2-biometric3.webp",
       alt: "Hardware-verified biometric attendance visual 3",
+      bgClass: "bg-[#FDF6E7]",
     },
     {
       src: "/features/tab2-biometric4.webp",
@@ -99,10 +102,12 @@ const BENTO_BY_TAB: Record<
     {
       src: "/features/tab3-talent2.webp",
       alt: "Unified talent lifecycle visual 2",
+      bgClass: "bg-[#F2F6E8]",
     },
     {
       src: "/features/tab3-talent3.webp",
       alt: "Unified talent lifecycle visual 3",
+      bgClass: "bg-[#E9F6EC]",
     },
     {
       src: "/features/tab3-talent4.webp",
@@ -121,51 +126,63 @@ function Bento({
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4">
-        <div className="relative h-72 overflow-hidden rounded-2xl sm:h-96 lg:h-[440px]">
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
           <Image
             src={col1Tall.src}
             alt={col1Tall.alt}
             fill
-            loading="lazy"
+            unoptimized
+            loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
-        <div className="relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px]">
+        <div
+          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
+            col1Short.bgClass ?? "bg-slate-100"
+          }`}
+        >
           <Image
             src={col1Short.src}
             alt={col1Short.alt}
             fill
-            loading="lazy"
+            unoptimized
+            loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-contain"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px]">
+        <div
+          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
+            col2Short.bgClass ?? "bg-slate-100"
+          }`}
+        >
           <Image
             src={col2Short.src}
             alt={col2Short.alt}
             fill
-            loading="lazy"
+            unoptimized
+            loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-contain"
           />
         </div>
-        <div className="relative h-72 overflow-hidden rounded-2xl sm:h-96 lg:h-[440px]">
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
           <Image
             src={col2Tall.src}
             alt={col2Tall.alt}
             fill
-            loading="lazy"
+            unoptimized
+            loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
       </div>
@@ -175,28 +192,6 @@ function Bento({
 
 export function PlatformTabs() {
   const [activeTab, setActiveTab] = useState<PlatformTab["value"]>("payroll");
-  const prefersReducedMotion = useReducedMotion();
-
-  const activeTabIndex = Math.max(
-    0,
-    PLATFORM_TABS.findIndex((tab) => tab.value === activeTab)
-  );
-
-  const panelVariants = prefersReducedMotion
-    ? {
-        enter: { opacity: 1 },
-        center: { opacity: 1 },
-        exit: { opacity: 0 },
-      }
-    : {
-        enter: { opacity: 0, y: 8, filter: "blur(4px)" },
-        center: { opacity: 1, y: 0, filter: "blur(0px)" },
-        exit: { opacity: 0, y: -8, filter: "blur(4px)" },
-      };
-
-  const panelTransition = prefersReducedMotion
-    ? { duration: 0 }
-    : { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
@@ -240,6 +235,7 @@ export function PlatformTabs() {
                     role="tab"
                     aria-selected={activeTab === tab.value}
                     data-id={tab.value}
+                    onClick={() => setActiveTab(tab.value)}
                     className="w-full cursor-pointer rounded-2xl border-0 p-6 text-left font-normal text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:p-8"
                   >
                     <span className="flex w-full flex-col items-start gap-3">
@@ -266,15 +262,7 @@ export function PlatformTabs() {
           </div>
 
           <div role="tabpanel" className="w-full">
-            <TransitionPanel
-              activeIndex={activeTabIndex}
-              variants={panelVariants}
-              transition={panelTransition}
-            >
-              {PLATFORM_TABS.map((tab) => (
-                <Bento key={tab.value} tiles={BENTO_BY_TAB[tab.value]} />
-              ))}
-            </TransitionPanel>
+            <Bento tiles={BENTO_BY_TAB[activeTab]} />
           </div>
         </div>
       </div>
