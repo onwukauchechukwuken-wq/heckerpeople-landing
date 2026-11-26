@@ -18,6 +18,8 @@ interface BentoImageTile {
   src: string;
   alt: string;
   bgClass?: string;
+  bgImage?: string;
+  frostedCard?: boolean;
 }
 
 const PLATFORM_TABS: PlatformTab[] = [
@@ -60,9 +62,11 @@ const BENTO_BY_TAB: Record<
       alt: "Smiling team member representing automated compensation and payroll",
     },
     {
-      src: "/features/tab1-payroll2.webp",
+      src: "/features/card-payroll-3.png",
       alt: "Paid employee compensation records list in HeckerPeople",
       bgClass: "bg-[#EAE6F3]",
+      bgImage: "/features/bg-payroll-3.png",
+      frostedCard: true,
     },
     {
       src: "/features/tab1-payroll3.webp",
@@ -80,13 +84,15 @@ const BENTO_BY_TAB: Record<
       alt: "Hardware-verified biometric attendance visual 1",
     },
     {
-      src: "/features/tab2-biometric2.webp",
-      alt: "Hardware-verified biometric attendance visual 2",
+      src: "/features/card-biometric-3.png",
+      alt: "Employee attendance status card with clock-in, PTO leave, and exemption details",
       bgClass: "bg-[#F3EEF8]",
+      bgImage: "/features/bg-biometric-3.png",
+      frostedCard: true,
     },
     {
       src: "/features/tab2-biometric3.webp",
-      alt: "Hardware-verified biometric attendance visual 3",
+      alt: "Live fingerprint match verification card",
       bgClass: "bg-[#FDF6E7]",
     },
     {
@@ -100,13 +106,15 @@ const BENTO_BY_TAB: Record<
       alt: "Unified talent lifecycle visual 1",
     },
     {
-      src: "/features/tab3-talent2.webp",
-      alt: "Unified talent lifecycle visual 2",
+      src: "/features/card-talent-3.png",
+      alt: "Top candidate matches list in HeckerPeople",
       bgClass: "bg-[#F2F6E8]",
+      bgImage: "/features/bg-talent-3.png",
+      frostedCard: true,
     },
     {
       src: "/features/tab3-talent3.webp",
-      alt: "Unified talent lifecycle visual 3",
+      alt: "Quarterly KPI appraisal progress card",
       bgClass: "bg-[#E9F6EC]",
     },
     {
@@ -115,6 +123,63 @@ const BENTO_BY_TAB: Record<
     },
   ],
 };
+
+function BentoTile({
+  tile,
+  heightClass,
+  defaultFitClass,
+}: {
+  tile: BentoImageTile;
+  heightClass: string;
+  defaultFitClass: "object-cover" | "object-contain";
+}) {
+  return (
+    <div
+      className={`relative ${heightClass} overflow-hidden rounded-2xl ${
+        tile.bgClass ?? "bg-slate-100"
+      }`}
+    >
+      {tile.bgImage && (
+        <img
+          src={tile.bgImage}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+
+      {tile.frostedCard ? (
+        <div className="relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-5">
+          <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/50 bg-white/35 p-3 shadow-sm backdrop-blur-md">
+            <div className="relative h-full w-full">
+              <Image
+                src={tile.src}
+                alt={tile.alt}
+                fill
+                unoptimized
+                loading="eager"
+                decoding="async"
+                sizes="(min-width:1024px) 25vw, 50vw"
+                className="h-full w-full rounded-xl object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Image
+          src={tile.src}
+          alt={tile.alt}
+          fill
+          unoptimized
+          loading="eager"
+          decoding="async"
+          sizes="(min-width:1024px) 25vw, 50vw"
+          className={`relative z-10 h-full w-full ${defaultFitClass}`}
+        />
+      )}
+    </div>
+  );
+}
 
 function Bento({
   tiles,
@@ -126,65 +191,29 @@ function Bento({
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4">
-        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
-          <Image
-            src={col1Tall.src}
-            alt={col1Tall.alt}
-            fill
-            unoptimized
-            loading="eager"
-            decoding="async"
-            sizes="(min-width:1024px) 25vw, 50vw"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div
-          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
-            col1Short.bgClass ?? "bg-slate-100"
-          }`}
-        >
-          <Image
-            src={col1Short.src}
-            alt={col1Short.alt}
-            fill
-            unoptimized
-            loading="eager"
-            decoding="async"
-            sizes="(min-width:1024px) 25vw, 50vw"
-            className="h-full w-full object-contain"
-          />
-        </div>
+        <BentoTile
+          tile={col1Tall}
+          heightClass="h-72 sm:h-96 lg:h-[440px]"
+          defaultFitClass="object-cover"
+        />
+        <BentoTile
+          tile={col1Short}
+          heightClass="h-48 sm:h-64 lg:h-[310px]"
+          defaultFitClass="object-contain"
+        />
       </div>
 
       <div className="flex flex-col gap-4">
-        <div
-          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
-            col2Short.bgClass ?? "bg-slate-100"
-          }`}
-        >
-          <Image
-            src={col2Short.src}
-            alt={col2Short.alt}
-            fill
-            unoptimized
-            loading="eager"
-            decoding="async"
-            sizes="(min-width:1024px) 25vw, 50vw"
-            className="h-full w-full object-contain"
-          />
-        </div>
-        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
-          <Image
-            src={col2Tall.src}
-            alt={col2Tall.alt}
-            fill
-            unoptimized
-            loading="eager"
-            decoding="async"
-            sizes="(min-width:1024px) 25vw, 50vw"
-            className="h-full w-full object-cover"
-          />
-        </div>
+        <BentoTile
+          tile={col2Short}
+          heightClass="h-48 sm:h-64 lg:h-[310px]"
+          defaultFitClass="object-contain"
+        />
+        <BentoTile
+          tile={col2Tall}
+          heightClass="h-72 sm:h-96 lg:h-[440px]"
+          defaultFitClass="object-cover"
+        />
       </div>
     </div>
   );
@@ -196,9 +225,9 @@ export function PlatformTabs() {
   return (
     <section
       id="platform"
-      className="px-6 py-16 md:px-12 lg:px-[80px] lg:py-[100px] xl:px-[100px]"
+      className="flex min-h-screen w-full items-center px-6 py-20 md:px-12 lg:px-[80px] lg:py-24 xl:px-[100px]"
     >
-      <div className="mx-auto w-full max-w-[1620px]">
+      <div className="mx-auto w-full max-w-[1440px]">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="text-display max-w-[520px] font-medium text-[#0F172A]">
@@ -269,3 +298,4 @@ export function PlatformTabs() {
     </section>
   );
 }
+
