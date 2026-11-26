@@ -93,7 +93,7 @@ export function Hero() {
                 Seamless Workforce Management Starts Here
               </FocusBlurResolve>
             </h1>
-            <p className="mt-4 max-w-[760px] font-sans text-base leading-[1.55] text-white/90 sm:text-[17px]">
+            <p className="mt-4 max-w-[700px] font-sans text-base leading-[1.55] text-white/90 sm:text-[17px]">
               <FocusBlurResolve delay={100}>
                 Effortlessly manage your workforce by automating attendance,
                 payroll, and core HR operations in one people-first platform.
