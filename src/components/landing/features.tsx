@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { CircleCheck } from "lucide-react";
-import { MagicCard } from "@/components/ui/magic-card";
 import FocusBlurResolve from "@/components/ui/smoothui/focus-blur-resolve";
 
 interface FeatureRow {
   title: string;
   description: string;
   bullets: string[];
-  imageSrc: string;
+  bgImage: string;
+  cardImage: string;
   imageAlt: string;
   reverse?: boolean;
 }
@@ -22,7 +22,8 @@ const FEATURES: FeatureRow[] = [
       "Live Shift Status Tracking",
       "Automated Conflict Alerts",
     ],
-    imageSrc: "/ops/shift-rostering.webp",
+    bgImage: "/features/bg-feature-1.png",
+    cardImage: "/features/card-feature-1.png",
     imageAlt:
       "HeckerPeople shift rostering interface showing employee schedule assignment",
   },
@@ -35,7 +36,8 @@ const FEATURES: FeatureRow[] = [
       "Bank-Grade Document Vault",
       "Tamper-proof Audit Trails",
     ],
-    imageSrc: "/ops/kpi-vault.webp",
+    bgImage: "/features/bg-feature-2.png",
+    cardImage: "/features/card-feature-2.png",
     imageAlt:
       "HeckerPeople KPI Management scorecard showing deliverables and score breakdown",
     reverse: true,
@@ -49,7 +51,8 @@ const FEATURES: FeatureRow[] = [
       "Tamper-Proof Compliance",
       "Advanced Search & Filtering",
     ],
-    imageSrc: "/ops/audit-log.webp",
+    bgImage: "/features/bg-feature-3.png",
+    cardImage: "/features/card-feature-3.png",
     imageAlt:
       "HeckerPeople reports interface showing real-time activity and compliance audit logs",
   },
@@ -105,26 +108,29 @@ export function Features() {
               </div>
 
               <div className={feature.reverse ? "lg:order-first" : undefined}>
-                <MagicCard
-                  gradientSize={280}
-                  gradientFrom="#06B6E9"
-                  gradientTo="#7DD3FC"
-                  gradientColor="rgba(6, 182, 233, 0.14)"
-                  gradientOpacity={0.75}
-                  className="aspect-[2416/1400] w-full rounded-2xl bg-slate-100"
-                >
-                  <div className="relative h-full w-full">
-                    <Image
-                      src={feature.imageSrc}
-                      alt={feature.imageAlt}
-                      fill
-                      loading="eager"
-                      decoding="async"
-                      sizes="(min-width:1024px) 45vw, 100vw"
-                      className="object-cover"
-                    />
+                <div className="relative aspect-[2416/1400] w-full overflow-hidden rounded-2xl bg-slate-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={feature.bgImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="relative z-10 flex h-full w-full items-center justify-center p-5">
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={feature.cardImage}
+                        alt={feature.imageAlt}
+                        fill
+                        unoptimized
+                        loading="eager"
+                        decoding="async"
+                        sizes="(min-width:1024px) 45vw, 100vw"
+                        className="object-contain"
+                      />
+                    </div>
                   </div>
-                </MagicCard>
+                </div>
               </div>
             </div>
           ))}
