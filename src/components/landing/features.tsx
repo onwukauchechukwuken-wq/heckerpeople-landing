@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { CircleCheck } from "lucide-react";
-import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicCard } from "@/components/ui/magic-card";
 import FocusBlurResolve from "@/components/ui/smoothui/focus-blur-resolve";
 
@@ -85,30 +84,24 @@ export function Features() {
             >
               <div>
                 <h3 className="text-h3 max-w-[440px] font-medium text-[#0F172A]">
-                  <FocusBlurResolve triggerOnView>
-                    {feature.title}
-                  </FocusBlurResolve>
+                  {feature.title}
                 </h3>
                 <p className="mt-5 max-w-[480px] font-sans text-base leading-[1.6] text-body">
-                  <FocusBlurResolve triggerOnView delay={100}>
-                    {feature.description}
-                  </FocusBlurResolve>
+                  {feature.description}
                 </p>
-                <BlurFade inView delay={0.14} duration={0.34} offset={6} blur="4px">
-                  <ul className="mt-6 space-y-4">
-                    {feature.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-center gap-3">
-                        <CircleCheck
-                          className="size-4 shrink-0 text-foreground"
-                          aria-hidden="true"
-                        />
-                        <span className="font-sans text-[15px] font-medium text-foreground">
-                          {bullet}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </BlurFade>
+                <ul className="mt-6 space-y-4">
+                  {feature.bullets.map((bullet) => (
+                    <li key={bullet} className="flex items-center gap-3">
+                      <CircleCheck
+                        className="size-4 shrink-0 text-foreground"
+                        aria-hidden="true"
+                      />
+                      <span className="font-sans text-[15px] font-medium text-foreground">
+                        {bullet}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className={feature.reverse ? "lg:order-first" : undefined}>
