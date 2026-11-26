@@ -19,7 +19,6 @@ interface BentoImageTile {
   alt: string;
   bgClass?: string;
   bgImage?: string;
-  frostedCard?: boolean;
 }
 
 const PLATFORM_TABS: PlatformTab[] = [
@@ -66,7 +65,6 @@ const BENTO_BY_TAB: Record<
       alt: "Paid employee compensation records list in HeckerPeople",
       bgClass: "bg-[#EAE6F3]",
       bgImage: "/features/bg-payroll-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab1-payroll3.webp",
@@ -88,7 +86,6 @@ const BENTO_BY_TAB: Record<
       alt: "Employee attendance status card with clock-in, PTO leave, and exemption details",
       bgClass: "bg-[#F3EEF8]",
       bgImage: "/features/bg-biometric-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab2-biometric3.webp",
@@ -110,7 +107,6 @@ const BENTO_BY_TAB: Record<
       alt: "Top candidate matches list in HeckerPeople",
       bgClass: "bg-[#F2F6E8]",
       bgImage: "/features/bg-talent-3.png",
-      frostedCard: true,
     },
     {
       src: "/features/tab3-talent3.webp",
@@ -148,35 +144,16 @@ function BentoTile({
         />
       )}
 
-      {tile.frostedCard ? (
-        <div className="relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-5">
-          <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/50 bg-white/35 p-3 shadow-sm backdrop-blur-md">
-            <div className="relative h-full w-full">
-              <Image
-                src={tile.src}
-                alt={tile.alt}
-                fill
-                unoptimized
-                loading="eager"
-                decoding="async"
-                sizes="(min-width:1024px) 25vw, 50vw"
-                className="h-full w-full rounded-xl object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <Image
-          src={tile.src}
-          alt={tile.alt}
-          fill
-          unoptimized
-          loading="eager"
-          decoding="async"
-          sizes="(min-width:1024px) 25vw, 50vw"
-          className={`relative z-10 h-full w-full ${defaultFitClass}`}
-        />
-      )}
+      <Image
+        src={tile.src}
+        alt={tile.alt}
+        fill
+        unoptimized
+        loading="eager"
+        decoding="async"
+        sizes="(min-width:1024px) 25vw, 50vw"
+        className={`relative z-10 h-full w-full ${defaultFitClass}`}
+      />
     </div>
   );
 }
