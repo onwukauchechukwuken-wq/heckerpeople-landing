@@ -25,7 +25,7 @@ export function Hero() {
   });
 
   const videoScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -28]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -20]);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
@@ -40,7 +40,7 @@ export function Hero() {
       <div className="mx-auto w-full max-w-[1820px] px-4 md:px-6 lg:px-12">
         <div
           ref={heroRef}
-          className="relative h-[600px] overflow-hidden rounded-[28px] bg-[#0B1220] sm:h-[700px] lg:h-[850px]"
+          className="relative h-[540px] overflow-hidden rounded-[28px] bg-[#0B1220] sm:h-[580px] lg:h-[620px] xl:h-[680px]"
         >
           <motion.div
             style={prefersReducedMotion ? undefined : { scale: videoScale }}
@@ -80,20 +80,20 @@ export function Hero() {
             className="pointer-events-none absolute inset-0 h-full w-full"
             style={{
               background:
-                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%)",
+                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%)",
             }}
           />
 
           <motion.div
             style={prefersReducedMotion ? undefined : { y: contentY }}
-            className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center px-6 pb-16 text-center text-white will-change-transform lg:pb-24"
+            className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center px-6 pb-8 text-center text-white will-change-transform lg:pb-12"
           >
             <h1 className="text-display max-w-[780px] font-semibold">
               <FocusBlurResolve delay={0}>
                 Seamless Workforce Management Starts Here
               </FocusBlurResolve>
             </h1>
-            <p className="mt-5 max-w-[760px] font-sans text-base leading-[1.6] text-white/90 sm:text-[17px]">
+            <p className="mt-4 max-w-[760px] font-sans text-base leading-[1.55] text-white/90 sm:text-[17px]">
               <FocusBlurResolve delay={100}>
                 HeckerPeople provides the tools to effortlessly manage your
                 workforce. By automating complex HR tasks—from biometric
@@ -103,7 +103,7 @@ export function Hero() {
               </FocusBlurResolve>
             </p>
             <BlurFade duration={0.34} delay={0.14} offset={8} blur="4px">
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 <BookDemoButton
                   size="xl"
                   className="min-w-[200px] bg-white text-foreground hover:bg-white/90"
