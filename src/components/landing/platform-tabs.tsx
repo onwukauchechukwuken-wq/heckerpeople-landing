@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/ui/animated-background";
 import FocusBlurResolve from "@/components/ui/smoothui/focus-blur-resolve";
 
@@ -118,9 +117,9 @@ function Bento({
   const [col1Tall, col1Short, col2Short, col2Tall] = tiles;
 
   return (
-    <div className="grid grid-cols-2 items-start gap-4">
+    <div className="grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-4">
-        <div className="relative aspect-[350/430] w-full overflow-hidden rounded-2xl bg-slate-100">
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
           <Image
             src={col1Tall.src}
             alt={col1Tall.alt}
@@ -128,10 +127,10 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
-        <div className="relative aspect-[350/290] w-full overflow-hidden rounded-2xl bg-slate-100">
+        <div className="relative h-48 overflow-hidden rounded-2xl bg-slate-100 sm:h-64 lg:h-[310px]">
           <Image
             src={col1Short.src}
             alt={col1Short.alt}
@@ -139,13 +138,13 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-contain"
+            className="h-full w-full object-cover"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="relative aspect-[350/290] w-full overflow-hidden rounded-2xl bg-slate-100">
+        <div className="relative h-48 overflow-hidden rounded-2xl bg-slate-100 sm:h-64 lg:h-[310px]">
           <Image
             src={col2Short.src}
             alt={col2Short.alt}
@@ -153,10 +152,10 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-contain"
+            className="h-full w-full object-cover"
           />
         </div>
-        <div className="relative aspect-[350/430] w-full overflow-hidden rounded-2xl bg-slate-100">
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
           <Image
             src={col2Tall.src}
             alt={col2Tall.alt}
@@ -164,7 +163,7 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
       </div>
@@ -174,7 +173,28 @@ function Bento({
 
 export function PlatformTabs() {
   const [activeTab, setActiveTab] = useState<PlatformTab["value"]>("payroll");
-  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const idleWarmup = () => {
+      const secondaryTiles = [
+        ...BENTO_BY_TAB.biometric,
+        ...BENTO_BY_TAB.talent,
+      ];
+      for (const tile of secondaryTiles) {
+        const img = new window.Image();
+        img.decoding = "async";
+        img.src = tile.src;
+      }
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(idleWarmup, { timeout: 1500 });
+      return () => window.cancelIdleCallback(id);
+    }
+
+    const timer = window.setTimeout(idleWarmup, 500);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <section
@@ -244,24 +264,7 @@ export function PlatformTabs() {
           </div>
 
           <div role="tabpanel" className="w-full">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={activeTab}
-                initial={
-                  prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 6 }
-                }
-                animate={{ opacity: 1, y: 0 }}
-                exit={
-                  prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -6 }
-                }
-                transition={{
-                  duration: prefersReducedMotion ? 0 : 0.22,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                <Bento tiles={BENTO_BY_TAB[activeTab]} />
-              </motion.div>
-            </AnimatePresence>
+            <Bento tiles={BENTO_BY_TAB[activeTab]} />
           </div>
         </div>
       </div>
