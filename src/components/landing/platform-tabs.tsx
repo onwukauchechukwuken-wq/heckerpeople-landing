@@ -118,9 +118,9 @@ function Bento({
   const [col1Tall, col1Short, col2Short, col2Tall] = tiles;
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 items-start gap-4">
       <div className="flex flex-col gap-4">
-        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
+        <div className="relative aspect-[350/430] w-full overflow-hidden rounded-2xl bg-slate-100">
           <Image
             src={col1Tall.src}
             alt={col1Tall.alt}
@@ -131,7 +131,7 @@ function Bento({
             className="object-cover"
           />
         </div>
-        <div className="relative h-48 overflow-hidden rounded-2xl bg-slate-100 sm:h-64 lg:h-[310px]">
+        <div className="relative aspect-[350/290] w-full overflow-hidden rounded-2xl bg-slate-100">
           <Image
             src={col1Short.src}
             alt={col1Short.alt}
@@ -139,13 +139,13 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="relative h-48 overflow-hidden rounded-2xl bg-slate-100 sm:h-64 lg:h-[310px]">
+        <div className="relative aspect-[350/290] w-full overflow-hidden rounded-2xl bg-slate-100">
           <Image
             src={col2Short.src}
             alt={col2Short.alt}
@@ -153,10 +153,10 @@ function Bento({
             loading="eager"
             decoding="async"
             sizes="(min-width:1024px) 25vw, 50vw"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
-        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
+        <div className="relative aspect-[350/430] w-full overflow-hidden rounded-2xl bg-slate-100">
           <Image
             src={col2Tall.src}
             alt={col2Tall.alt}
