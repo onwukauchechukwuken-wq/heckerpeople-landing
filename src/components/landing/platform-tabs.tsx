@@ -116,33 +116,6 @@ const BENTO_BY_TAB: Record<
   ],
 };
 
-function BentoTile({
-  tile,
-  heightClass,
-}: {
-  tile: BentoImageTile;
-  heightClass: string;
-}) {
-  return (
-    <div
-      className={`relative ${heightClass} overflow-hidden rounded-2xl ${
-        tile.bgClass ?? "bg-slate-100"
-      }`}
-    >
-      <Image
-        src={tile.src}
-        alt={tile.alt}
-        fill
-        unoptimized
-        loading="eager"
-        decoding="async"
-        sizes="(min-width:1024px) 25vw, 50vw"
-        className="h-full w-full object-cover"
-      />
-    </div>
-  );
-}
-
 function Bento({
   tiles,
 }: {
@@ -151,15 +124,67 @@ function Bento({
   const [col1Tall, col1Short, col2Short, col2Tall] = tiles;
 
   return (
-    <div className="grid grid-cols-2 gap-3.5">
-      <div className="flex flex-col gap-3.5">
-        <BentoTile tile={col1Tall} heightClass="h-56 sm:h-64 lg:h-[260px]" />
-        <BentoTile tile={col1Short} heightClass="h-44 sm:h-52 lg:h-[195px]" />
+    <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
+          <Image
+            src={col1Tall.src}
+            alt={col1Tall.alt}
+            fill
+            unoptimized
+            loading="eager"
+            decoding="async"
+            sizes="(min-width:1024px) 25vw, 50vw"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div
+          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
+            col1Short.bgClass ?? "bg-slate-100"
+          }`}
+        >
+          <Image
+            src={col1Short.src}
+            alt={col1Short.alt}
+            fill
+            unoptimized
+            loading="eager"
+            decoding="async"
+            sizes="(min-width:1024px) 25vw, 50vw"
+            className="h-full w-full object-contain"
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col gap-3.5">
-        <BentoTile tile={col2Short} heightClass="h-44 sm:h-52 lg:h-[195px]" />
-        <BentoTile tile={col2Tall} heightClass="h-56 sm:h-64 lg:h-[260px]" />
+      <div className="flex flex-col gap-4">
+        <div
+          className={`relative h-48 overflow-hidden rounded-2xl sm:h-64 lg:h-[310px] ${
+            col2Short.bgClass ?? "bg-slate-100"
+          }`}
+        >
+          <Image
+            src={col2Short.src}
+            alt={col2Short.alt}
+            fill
+            unoptimized
+            loading="eager"
+            decoding="async"
+            sizes="(min-width:1024px) 25vw, 50vw"
+            className="h-full w-full object-contain"
+          />
+        </div>
+        <div className="relative h-72 overflow-hidden rounded-2xl bg-slate-100 sm:h-96 lg:h-[440px]">
+          <Image
+            src={col2Tall.src}
+            alt={col2Tall.alt}
+            fill
+            unoptimized
+            loading="eager"
+            decoding="async"
+            sizes="(min-width:1024px) 25vw, 50vw"
+            className="h-full w-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );
@@ -171,12 +196,12 @@ export function PlatformTabs() {
   return (
     <section
       id="platform"
-      className="flex min-h-[calc(100vh-4rem)] w-full items-center px-6 py-10 md:px-12 lg:px-[80px] lg:py-12 xl:px-[100px]"
+      className="px-6 py-16 md:px-12 lg:px-[80px] lg:py-[100px] xl:px-[100px]"
     >
-      <div className="mx-auto w-full max-w-[1440px]">
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="mx-auto w-full max-w-[1620px]">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h2 className="max-w-[480px] font-sans text-3xl leading-[1.15] font-medium tracking-tight text-[#0F172A] sm:text-4xl lg:text-[40px]">
+            <h2 className="text-display max-w-[520px] font-medium text-[#0F172A]">
               <FocusBlurResolve triggerOnView>
                 One Platform. Total Workforce Control.
               </FocusBlurResolve>
@@ -186,7 +211,7 @@ export function PlatformTabs() {
               role="tablist"
               aria-orientation="vertical"
               aria-label="HeckerPeople platform capabilities"
-              className="mt-6 flex w-full flex-col items-stretch gap-1.5"
+              className="mt-12 flex w-full flex-col items-stretch gap-2"
             >
               <AnimatedBackground
                 defaultValue="payroll"
@@ -211,10 +236,10 @@ export function PlatformTabs() {
                     aria-selected={activeTab === tab.value}
                     data-id={tab.value}
                     onClick={() => setActiveTab(tab.value)}
-                    className="w-full cursor-pointer rounded-2xl border-0 px-5 py-4 text-left font-normal text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:px-6 md:py-5"
+                    className="w-full cursor-pointer rounded-2xl border-0 p-6 text-left font-normal text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:p-8"
                   >
-                    <span className="flex w-full flex-col items-start gap-2">
-                      <span className="flex items-center gap-2.5 font-sans text-[18px] leading-snug font-medium text-foreground">
+                    <span className="flex w-full flex-col items-start gap-3">
+                      <span className="flex items-center gap-3 font-sans text-[20px] leading-snug font-medium text-foreground">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={tab.iconSrc}
@@ -226,7 +251,7 @@ export function PlatformTabs() {
                         />
                         <span>{tab.title}</span>
                       </span>
-                      <span className="max-w-[470px] font-sans text-sm leading-relaxed font-normal text-body">
+                      <span className="max-w-[470px] font-sans text-base leading-[1.6] font-normal text-body">
                         {tab.description}
                       </span>
                     </span>
