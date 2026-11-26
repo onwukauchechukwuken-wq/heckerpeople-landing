@@ -28,17 +28,17 @@ export function BlurFade({
   children,
   className,
   variant,
-  duration = 0.36,
+  duration = 0.5,
   delay = 0,
-  offset = 8,
+  offset = 14,
   direction = "up",
   inView = false,
-  blur = "5px",
+  blur = "6px",
   ...props
 }: BlurFadeProps) {
   const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const inViewResult = useInView(ref, { once: true, amount: "some" });
+  const inViewResult = useInView(ref, { once: true, amount: 0.2 });
   const isInView = !inView || inViewResult;
 
   const axis = direction === "left" || direction === "right" ? "x" : "y";
