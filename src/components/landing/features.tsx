@@ -22,7 +22,7 @@ const FEATURES: FeatureRow[] = [
       "Live Shift Status Tracking",
       "Automated Conflict Alerts",
     ],
-    bgImage: "/features/bg-feature-1.png",
+    bgImage: "/features/bg-feature-1.jpg",
     cardImage: "/features/card-feature-1.png",
     imageAlt:
       "HeckerPeople shift rostering interface showing employee schedule assignment",
@@ -36,7 +36,7 @@ const FEATURES: FeatureRow[] = [
       "Bank-Grade Document Vault",
       "Tamper-proof Audit Trails",
     ],
-    bgImage: "/features/bg-feature-2.png",
+    bgImage: "/features/bg-feature-2.jpg",
     cardImage: "/features/card-feature-2.png",
     imageAlt:
       "HeckerPeople KPI Management scorecard showing deliverables and score breakdown",
@@ -51,7 +51,7 @@ const FEATURES: FeatureRow[] = [
       "Tamper-Proof Compliance",
       "Advanced Search & Filtering",
     ],
-    bgImage: "/features/bg-feature-3.png",
+    bgImage: "/features/bg-feature-3.jpg",
     cardImage: "/features/card-feature-3.png",
     imageAlt:
       "HeckerPeople reports interface showing real-time activity and compliance audit logs",
@@ -114,6 +114,8 @@ export function Features() {
                     src={feature.bgImage}
                     alt=""
                     aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
                     className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="relative z-10 flex h-full w-full items-center justify-center p-5">
@@ -123,7 +125,6 @@ export function Features() {
                         alt={feature.imageAlt}
                         fill
                         unoptimized
-                        loading="eager"
                         decoding="async"
                         sizes="(min-width:1024px) 45vw, 100vw"
                         className="object-contain"
