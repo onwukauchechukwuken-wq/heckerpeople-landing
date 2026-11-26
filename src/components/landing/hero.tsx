@@ -29,39 +29,10 @@ export function Hero() {
 
   useEffect(() => {
     if (prefersReducedMotion) return;
-
-    let cancelled = false;
-    let idleId: number | null = null;
-    let timerId: ReturnType<typeof setTimeout> | null = null;
-
-    const triggerLoad = () => {
-      if (!cancelled) setShouldLoadVideo(true);
-    };
-
-    const scheduleAfterLoad = () => {
-      if (typeof window.requestIdleCallback === "function") {
-        idleId = window.requestIdleCallback(triggerLoad, { timeout: 1200 });
-      } else {
-        timerId = setTimeout(triggerLoad, 400);
-      }
-    };
-
-    if (document.readyState === "complete") {
-      scheduleAfterLoad();
-    } else {
-      window.addEventListener("load", scheduleAfterLoad, { once: true });
-    }
-
-    return () => {
-      cancelled = true;
-      window.removeEventListener("load", scheduleAfterLoad);
-      if (idleId !== null && typeof window.cancelIdleCallback === "function") {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timerId !== null) {
-        clearTimeout(timerId);
-      }
-    };
+    const rafId = window.requestAnimationFrame(() => {
+      setShouldLoadVideo(true);
+    });
+    return () => window.cancelAnimationFrame(rafId);
   }, [prefersReducedMotion]);
 
   return (
@@ -71,12 +42,6 @@ export function Hero() {
           ref={heroRef}
           className="relative h-[600px] overflow-hidden rounded-[28px] bg-[#0B1220] sm:h-[700px] lg:h-[850px]"
         >
-          <link
-            rel="preload"
-            as="image"
-            href="/hero/hero-poster.webp"
-            fetchPriority="high"
-          />
           <motion.div
             style={prefersReducedMotion ? undefined : { scale: videoScale }}
             className="absolute inset-0 h-full w-full origin-center will-change-transform"
@@ -91,14 +56,14 @@ export function Hero() {
               className="h-full w-full object-cover"
             />
 
-            {/* Deferred hero video attached after initial load / idle */}
+            {/* Hero background video */}
             {shouldLoadVideo && !prefersReducedMotion && (
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="none"
+                preload="auto"
                 poster="/hero/hero-poster.webp"
                 onCanPlay={() => setVideoReady(true)}
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
